@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="Author" content="Kacper Kania"/>
+
+  <meta name="robots" content="all"/>
+  <meta name="description" content="Strona o Model IOS/OSI"/>
+  <meta name="keyword" content="IOS, OSI"/>
+
+
+  <title>OSI/ISO</title>
+  </head>
+  <body>
+
+  <h1>Model ISO/OSI</h1>
+
+  <h2>Wprowadzenie</h2><hr>
+
+  <p><strong>Model OSI<em> (pełna nazwa ISO OSI RM, ang. ISO Open Systems Interconnection Reference Model – model odniesienia łączenia systemów otwartych)</strong></em> lub OSI – standard zdefiniowany przez ISO oraz ITU-T opisujący strukturę komunikacji sieciowej.
+
+Międzynarodowa Organizacja Normalizacyjna (ang. International Organization for Standardization) na początku lat osiemdziesiątych dostrzegła potrzebę stworzenia modelu sieciowego, dzięki któremu producenci mogliby opracowywać współpracujące ze sobą rozwiązania sieciowe. W taki sposób powstała specyfikacja Open Systems Interconnection Reference Model, która do polskich norm została zaadaptowana w 1995 roku.
+
+Model ISO OSI RM jest traktowany jako model odniesienia (wzorzec) dla większości rodzin protokołów komunikacyjnych. Podstawowym założeniem modelu jest podział systemów sieciowych na 7 warstw (ang. layers) współpracujących ze sobą w ściśle określony sposób. Został przyjęty przez ISO w 1984 roku a najbardziej interesującym organem jest wspólny komitet powołany przez ISO/IEC, zwany Joint Technical Committee 1- Information Technology (JTC1). Formalnie dzieli się jeszcze na podkomitety SC.
+
+Dla Internetu sformułowano uproszczony Model TCP/IP, który ma tylko 4 warstwy.</p>
+
+<h2>Kapsułkowanie danych</h2>
+<hr>
+<p>Model OSI opisuje drogę danych od aplikacji w systemie jednej stacji roboczej do aplikacji w systemie drugiej. Przed wysłaniem dane wraz z przekazywaniem do niższych warstw sieci zmieniają swój format, co nosi nazwę procesu kapsułkowania (enkapsulacji).</p>
+<h4>Schemat</h4>
+<img src="iso.png"width="500" height="350">
+<p>
+Na rysunku można zauważyć jak wraz z przenoszeniem kombinacji składającej się z danych i nagłówka warstwy poprzedniej w dół stacji wysyłającej (lewa strona) ulega ona kapsułkowaniu pod nagłówkiem warstwy kolejnej. W warstwie transportu dane obejmują właściwe dane oraz nagłówek segmentu, natomiast w warstwie sieciowej dane oprócz właściwych danych i nagłówka segmentu dodatkowo wzbogacone są o nagłówek sieciowy, który zawiera adresy logiczne: źródłowy i docelowy. Adresy te pozwalają wyznaczyć drogę tych pakietów między dwiema stacjami, które pracują w odległych sieciach. W warstwie łącza danych pakiet z poprzedniej warstwy wzbogacony jest dodatkowo o nagłówek ramki, który określa sposób przekazania danych przez interfejs sieciowy do sieci fizycznej. Ostatnia warstwa – fizyczna – ramka z poprzedniej warstwy przekształcana jest do postaci pozwalającej przesłać informację przewodem sieciowym lub za pomocą innego nośnika. Dane wędrują do stacji docelowej i tam są ponownie przekształcane, najpierw z bitów na nagłówek ramki oraz pozostałe dane. Kiedy dane wędrują do wyższych warstw, to właśnie nagłówki są wykorzystywane do określenia w jaki sposób dane mają zostać przekazane wyższym warstwom. W związku z tym, po dotarciu danych do wyższej warstwy nagłówek warstwy poprzedniej jest zdejmowany.
+</p>
+<p><p>
+<h2>Warstwy wyższe</h2>
+  <hr>
+<p>
+  Wyróżniamy trzy warstwy górne, czyli warstwę aplikacji, prezentacji i sesji. Ich zadaniem jest współpraca z oprogramowaniem realizującym zadania zlecane przez użytkownika systemu komputerowego. Tworzą one pewien interfejs, który pozwala na komunikację z warstwami niższymi. Ta sama warstwa realizuje dokładnie odwrotne zadanie w zależności od kierunku przepływu danych. Przyjmijmy, że dane przepływają w dół Modelu OSI, kiedy płyną od użytkownika do urządzeń sieciowych oraz w górę w przeciwnym wypadku.</p>
+
+  <p><strong>Warstwa 7: aplikacji</strong>
+  Warstwa aplikacji jest warstwą najwyższą, zajmuje się specyfikacją interfejsu, który wykorzystują aplikacje do przesyłania danych do sieci (poprzez kolejne warstwy modelu ISO/OSI). W przypadku sieci komputerowych aplikacje są zwykle procesami uruchomionymi na odległych hostach. Interfejs udostępniający programistom usługi dostarczane przez warstwę aplikacji opiera się na obiektach nazywanych gniazdami (ang. socket).</p>
+
+  Jeżeli użytkownik posługuje się oprogramowaniem działającym w architekturze klient-serwer, zwykle po jego stronie znajduje się klient, a serwer działa na maszynie podłączonej do sieci świadczącej usługi równocześnie wielu klientom. Zarówno serwer, jak i klient znajdują się w warstwie aplikacji. Komunikacja nigdy nie odbywa się bezpośrednio między tymi programami. Kiedy klient chce przesłać żądanie do serwera, przekazuje komunikat w dół do warstw niższych, które fizycznie przesyłają go do odpowiedniej maszyny, gdzie informacje ponownie wędrują w górę i są ostatecznie odbierane przez serwer. Jednocześnie zapewnia interfejs między aplikacjami, których używamy, a siecią (umożliwia komunikację).
+
+  <p><strong>Warstwa 6: prezentacji</strong>
+  Podczas ruchu w dół zadaniem warstwy prezentacji jest przetworzenie danych od aplikacji do postaci kanonicznej (ang. canonical representation) zgodnej ze specyfikacją OSI-RM, dzięki czemu niższe warstwy zawsze otrzymują dane w tym samym formacie. Kiedy informacje płyną w górę, warstwa prezentacji tłumaczy format otrzymywanych danych na zgodny z wewnętrzną reprezentacją systemu docelowego. Wynika to ze zróżnicowania systemów komputerowych, które mogą w różny sposób interpretować te same dane. Dla przykładu bity w bajcie danych w niektórych procesorach są interpretowane w odwrotnej kolejności niż w innych. Warstwa ta odpowiada za kodowanie i konwersję danych oraz za kompresję / dekompresję; szyfrowanie / deszyfrowanie. Warstwa prezentacji obsługuje np. MPEG, JPG, GIF itp.
+</p>
+
+  <p><strong>Warstwa 5: sesji</strong>
+  Warstwa sesji otrzymuje od różnych aplikacji dane, które muszą zostać odpowiednio zsynchronizowane. Synchronizacja występuje między warstwami sesji systemu nadawcy i odbiorcy. Warstwa sesji „wie”, która aplikacja łączy się z którą, dzięki czemu może zapewnić właściwy kierunek przepływu danych – nadzoruje połączenie. Wznawia je po przerwaniu.
+  </p>
+<p>
+<hr>
+Przejdź do strony <a href="tcp.html">Model TCP/IP</a> | <a href="osi.html">Model ISO/OSI</a>
+
+  </body>
+
+
+
+  </html>
